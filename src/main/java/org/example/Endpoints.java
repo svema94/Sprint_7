@@ -1,4 +1,4 @@
-package java;
+package org.example;
 
 public class Endpoints {
     public static String URL = "https://qa-scooter.praktikum-services.ru/";

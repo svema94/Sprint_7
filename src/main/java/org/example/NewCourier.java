@@ -1,4 +1,4 @@
-package java;
+package org.example;
 
 public class NewCourier {
     private String login;
@@ -36,5 +36,4 @@ public class NewCourier {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
 }

@@ -1,3 +1,5 @@
+package org.example;
+
 import java.util.List;
 
 public class NewOrder {
@@ -88,5 +90,4 @@ public class NewOrder {
     public void setColor(List<String> color) {
         this.color = color;
     }
-
 }

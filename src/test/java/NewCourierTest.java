@@ -1,16 +1,16 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import ru.project.CourierSteps;
-import ru.project.NewCourier;
-import ru.project.LoginCourier;
+import org.example.CourierSteps;
+import org.example.NewCourier;
+import org.example.CourierLogin;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class NewCourier {
-    public static String login = "naruto";
+public class NewCourierTest {
+    public static String login = "pikachu";
     public static String password = "1234";
-    public static String firstName = "Наруто";
+    public static String firstName = "Пикачу";
 
 
     @Test
@@ -19,7 +19,7 @@ public class NewCourier {
     public void createNewCourier() {
 
         NewCourier courierCreateRequest = new NewCourier(login, password, firstName);
-        LoginCourier courierLoginRequest = new LoginCourier(login, password);
+        CourierLogin courierLoginRequest = new CourierLogin(login, password);
         CourierSteps courierSteps = new CourierSteps();
 
         courierSteps.courierCreate(courierCreateRequest)
@@ -35,7 +35,7 @@ public class NewCourier {
     public void createTwoIdenticalCouriers() {
 
         NewCourier courierCreateRequest = new NewCourier(login, password, firstName);
-        LoginCourier courierLoginRequest = new LoginCourier(login, password);
+        CourierLogin courierLoginRequest = new CourierLogin(login, password);
         CourierSteps courierSteps = new CourierSteps();
 
         courierSteps.courierCreate(courierCreateRequest)
@@ -53,7 +53,7 @@ public class NewCourier {
     @DisplayName("Создание курьера без логина")
     @Description("Попытка создать курьера без передачи поля login. Создание курьера должно провалиться")
     public void createCourierWithoutLogin() {
-        NewCourier courierCreateRequest = new NewCourier(login, null, firstName);
+        NewCourier courierCreateRequest = new NewCourier(null, password, firstName);
         CourierSteps courierSteps = new CourierSteps();
 
         courierSteps.courierCreate(courierCreateRequest)
@@ -65,12 +65,11 @@ public class NewCourier {
     @DisplayName("Создание курьера без пароля")
     @Description("Попытка создать курьера без передачи поля password. Создание курьера должно провалиться")
     public void createCourierWithoutPassword() {
-        NewCourier courierCreateRequest = new NewCourier(null, password, firstName);
+        NewCourier courierCreateRequest = new NewCourier(login, null, firstName);
         CourierSteps courierSteps = new CourierSteps();
 
         courierSteps.courierCreate(courierCreateRequest)
                 .statusCode(400)
                 .assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
-
 }
