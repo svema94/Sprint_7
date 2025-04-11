@@ -1,17 +1,22 @@
 package org.example;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.example.Endpoints.*;
+import static io.restassured.RestAssured.*;
+import static org.example.Endpoints.GET_ORDER_LIST;
+import static org.example.Endpoints.URL;
+import io.restassured.response.Response;
 
 public class Order {
-    public void orderGetList() {
-        given().log().all()
-                .baseUri(URL)
+
+    private final String baseUrl = URL;
+
+    // Метод для отправки GET-запроса на получение списка заказов
+    public Response getOrderList() {
+        return given()
+                .baseUri(baseUrl)
+                .when()
                 .get(GET_ORDER_LIST)
                 .then()
-                .assertThat().body("orders", notNullValue())
-                .and()
-                .statusCode(200);
+                .extract()
+                .response();
     }
 }

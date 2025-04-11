@@ -3,6 +3,7 @@ import io.qameta.allure.junit4.DisplayName;
 import org.example.CourierSteps;
 import org.example.NewCourier;
 import org.example.CourierLogin;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -71,5 +72,11 @@ public class NewCourierTest {
         courierSteps.courierCreate(courierCreateRequest)
                 .statusCode(400)
                 .assertThat().body("message", equalTo("Недостаточно данных для создания учетной записи"));
+    }
+    @After
+    public void deleteCourier() {
+        CourierSteps courierSteps = new CourierSteps();
+        CourierLogin validCourierLoginRequest = new CourierLogin(login, password);
+        courierSteps.courierDeleteAfterLogin(validCourierLoginRequest);
     }
 }
